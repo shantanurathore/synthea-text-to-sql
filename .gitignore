@@ -1,0 +1,14 @@
+# Credentials
+.env
+
+# Generated patient data (can be large — regenerate with run_synthea)
+data/
+synthea/output/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Synthea source repo (clone separately — see README)
+synthea/
