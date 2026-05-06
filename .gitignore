@@ -12,3 +12,10 @@ __pycache__/
 
 # Synthea source repo (clone separately — see README)
 synthea/
+
+# dbt
+logs/
+synthea_dbt/logs/
+synthea_dbt/target/
+synthea_dbt/dbt_packages/
+synthea_dbt/.user.yml

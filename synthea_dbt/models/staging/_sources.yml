@@ -1,0 +1,38 @@
+version: 2
+
+sources:
+  - name: synthea_raw
+    description: "Raw Synthea-generated EHR data, loaded as TEXT columns. Untyped, untransformed."
+    database: synthea_warehouse
+    schema: synthea_raw
+    tables:
+      - name: patients
+        description: "One row per patient."
+      - name: encounters
+        description: "Clinical encounters — visits, hospitalizations, etc. Each links to one patient."
+      - name: conditions
+        description: "Patient diagnoses, SNOMED-coded."
+      - name: procedures
+        description: "Procedures performed during encounters, SNOMED-coded."
+      - name: observations
+        description: "Vitals and lab results, LOINC-coded."
+      - name: medications
+        description: "Prescribed medications, RxNorm-coded."
+      - name: claims
+        description: "Insurance claims — typically one per encounter."
+      - name: claims_transactions
+        description: "Line items within claims. The largest table in the warehouse."
+      - name: providers
+        description: "Healthcare providers (doctors)."
+      - name: organizations
+        description: "Hospitals, clinics, etc."
+      - name: payers
+        description: "Insurance payers."
+      - name: payer_transitions
+        description: "Records of patients switching insurance."
+      - name: allergies
+      - name: careplans
+      - name: devices
+      - name: imaging_studies
+      - name: immunizations
+      - name: supplies
