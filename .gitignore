@@ -19,3 +19,7 @@ synthea_dbt/logs/
 synthea_dbt/target/
 synthea_dbt/dbt_packages/
 synthea_dbt/.user.yml
+
+# macOS
+.DS_Store
+**/.DS_Store
