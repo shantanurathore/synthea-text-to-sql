@@ -207,6 +207,28 @@ This protects the employer (no leak of internal architecture), protects the proj
 **Reversibility**: N/A — this is a discipline, not a technical choice.
 
 ---
+## Three fact tables instead of unified fct_operation
+**Date:** 2026-05-19
+
+**Decision:** Split by grain into `fct_encounter` (573K), `fct_claim_line` (9.4M),
+`fct_observation` (6.8M). Conditions / procedures / medications fold into
+fct_encounter as aggregates + bridge tables.
+
+**Why:**
+- **Density forces it.** Claim lines avg 16.5/encounter, observations 22.9 —
+  5–15× denser than conditions/procedures/meds. No single grain works.
+- **Work's unified-fact pattern doesn't apply.** fOperation at work harmonizes
+  three heterogeneous EMRs. Synthea is already harmonized — nothing to unify.
+- **OMOP-aligned.** Matches visit_occurrence / cost / measurement split. See
+  concepts-covered.md.
+- **Better agent routing.** Operational → fct_encounter, RCM → fct_claim_line,
+  clinical → fct_observation. Single fct_operation risks wrong-grain aggregations
+  (COUNT(*) vs COUNT(DISTINCT encounter_id)).
+
+**Tradeoff:** 5 tables + bridges vs 1, longer schema prompt. Worth it for grain
+clarity and RCM defensibility.
+
+---
 
 ## Decisions deferred (still open)
 

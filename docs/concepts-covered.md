@@ -168,6 +168,34 @@ The hardest git rule to internalize: **once a secret is in git history, removing
 
 Multi-line commit messages are good practice for non-trivial commits. First line is the summary that shows in `git log --oneline`; body explains the why for future-you (or a future recruiter reading commits).
 
+## OMOP CDM (Observational Medical Outcomes Partnership Common Data Model)
+
+Open-source healthcare analytics schema standard from OHDSI. Defines a canonical
+schema that any EHR can be mapped into, so queries become portable across
+institutions.
+
+**Why it's here:** OMOP splits clinical events by grain into separate fact tables
+— same call I made in this project's marts layer. Borrowing the philosophy, not
+the spec.
+
+**Mapping:**
+
+| This project | OMOP table | Grain |
+|---|---|---|
+| dim_patient | person | per patient |
+| fct_encounter | visit_occurrence | per visit |
+| fct_observation | measurement | per lab/vital |
+| fct_claim_line | cost | per billed line |
+| dim_provider | provider | per provider |
+| bridge_encounter_condition | condition_occurrence | per diagnosis event |
+| bridge_encounter_procedure | procedure_occurrence | per procedure |
+| bridge_encounter_medication | drug_exposure | per medication event |
+
+**Not doing:** OMOP column naming (less LLM-friendly), OHDSI vocabulary tables
+(Synthea is already clean SNOMED/RxNorm/LOINC), full 25+ table spec.
+
+**Ref:** [CDM v5.4](https://ohdsi.github.io/CommonDataModel/cdm54.html)
+
 ## What's coming up that hasn't been covered yet
 
 Concepts we'll add in future updates of this doc as the project progresses:
